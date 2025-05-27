@@ -1,1 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+pip-freeze.txt
+pipenv.lock
+.DS_Store
 
+# IDE-specific
+.vscode/
+.idea/
+
+# Output files (if you don't want to commit examples by default)
+# *.xlsx
+# *.csv
+
+    
