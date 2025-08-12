@@ -76,22 +76,21 @@ def generate_excel_from_csv(csv_file_path, output_excel_path, split_column_name=
     default_sheet_removed = False
 
     if split_column_name and split_column_name in df.columns:
-        return
-        
+
         def sanitize_sheet_name(name):
             invalid_chars = ['*', ':', '/', '\\', '?', '[', ']']
             for char in invalid_chars:
                 name = name.replace(char, '_')
-            return name[:31] 
+            return name[:31]
 
         unique_values = df[split_column_name].unique()
         for value in unique_values:
             sheet_name = sanitize_sheet_name(str(value))
             if sheet_name in workbook.sheetnames:
                 sheet_name = f"{sheet_name}_{pd.util.hash_pandas_object(pd.Series(value)).sum() % 1000}" # Adiciona um hash para unicidade
-            
+
             value_df = df[df[split_column_name] == value]
-            
+
             if not value_df.empty:
                 worksheet = workbook.create_sheet(title=sheet_name)
                 for r_idx, row in enumerate(dataframe_to_rows(value_df, index=False, header=True), 1):
@@ -99,10 +98,9 @@ def generate_excel_from_csv(csv_file_path, output_excel_path, split_column_name=
                         worksheet.cell(row=r_idx, column=c_idx, value=cell_value)
                 apply_excel_formatting(worksheet)
 
-        
         if workbook.sheetnames != ["Sheet"] and "Sheet" in workbook.sheetnames:
-             del workbook["Sheet"]
-             default_sheet_removed = True
+            del workbook["Sheet"]
+            default_sheet_removed = True
     else:
         if "Sheet" in workbook.sheetnames:
             worksheet = workbook["Sheet"]
@@ -159,7 +157,7 @@ def main():
     success = generate_excel_from_csv(
         csv_file,
         output_excel_path,
-        split_by_column=split_column if split_column else None
+        split_column_name=split_column if split_column else None
     )
     
     if success:
