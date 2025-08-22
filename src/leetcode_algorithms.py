@@ -269,3 +269,39 @@ def valid_palindrome(s: str) -> bool:
     filtered = [ch.lower() for ch in s if ch.isalnum()]
     return filtered == filtered[::-1]
 
+
+def merge_intervals(intervals: List[List[int]]) -> List[List[int]]:
+    """Merge overlapping intervals and return the resulting list.
+
+    The intervals are first sorted by start time. Each interval is then either
+    appended to the ``merged`` list if it does not overlap with the previous
+    interval or used to extend the last interval in ``merged``.
+
+    Parameters
+    ----------
+    intervals:
+        A list of ``[start, end]`` pairs where ``start <= end``.
+
+    Returns
+    -------
+    List[List[int]]
+        The merged list of intervals sorted by start time.
+    """
+
+    if not intervals:
+        return []
+
+    # Sort intervals by their start values to simplify merging.
+    intervals.sort(key=lambda i: i[0])
+
+    merged: List[List[int]] = [intervals[0][:]]
+    for start, end in intervals[1:]:
+        last_end = merged[-1][1]
+        if start <= last_end:
+            # Overlapping intervals, extend the last interval.
+            merged[-1][1] = max(last_end, end)
+        else:
+            # Disjoint interval, append as new interval.
+            merged.append([start, end])
+    return merged
+

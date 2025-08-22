@@ -17,6 +17,7 @@ from leetcode_algorithms import (
     pascal_triangle,
     max_profit,
     valid_palindrome,
+    merge_intervals,
 )
 
 
@@ -66,3 +67,8 @@ def test_max_profit():
 def test_valid_palindrome():
     assert valid_palindrome("A man, a plan, a canal: Panama")
     assert not valid_palindrome("race a car")
+
+
+def test_merge_intervals():
+    assert merge_intervals([[1, 3], [2, 6], [8, 10], [15, 18]]) == [[1, 6], [8, 10], [15, 18]]
+    assert merge_intervals([[1, 4], [4, 5]]) == [[1, 5]]
