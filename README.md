@@ -24,6 +24,11 @@ Run the demo with:
 python src/ram/main.py
 ```
 
+### `src/leetcode_algorithms.py`
+Collection of solutions to classic algorithmic problems inspired by LeetCode.
+Each function is self-contained and demonstrates approaches to
+common interview questions.
+
 ## Requirements
 
 These scripts require Python 3.10+ and the following third-party packages:
